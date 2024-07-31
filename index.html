@@ -4,13 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="/styles/styles.css"> 
+    <link rel="stylesheet" href="/styles/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: scroll;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1000; /* Ensure header stays on top */
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        header .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        header .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        header .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        header .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
+        header .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        header .dropdown:hover a {
+            background-color: #575757;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: auto;
+            padding-top: 20px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .bio {
+            flex: 1;
+        }
+
+        .bio h1, .bio h2, .reading-list h2 {
+            color: #333;
+        }
+
+        .bio h2, .reading-list h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .reading-list, .bio {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .reading-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reading-list li {
+            padding: 5px 0;
+        }
+
+    </style>
 </head>
 <body>
     <header>
         <a href="/">Home</a>
         <a href="/resume/">Resume</a>
-        <a href="/test/">test</a>
+        <a href="/test/">Test</a>
         <div class="dropdown">
             <a href="#">Writing Samples</a>
             <div class="dropdown-content">
@@ -20,5 +135,38 @@
             </div>
         </div>
     </header>
+
+    <div class="container">
+        <div class="profile">
+            <img src="/images/NEIL_MASCARENHAS3.jpeg" alt="Neil Mascarenhas">
+            <div class="bio">
+                <h1>Neil Mascarenhas</h1>
+                <h3>Applying to Financial Engineering Programs for Fall 2025</h3>
+                <p>I am well versed in statistics, financial mathematics, and machine learning. I am applying to a master's in financial engineering program for Fall 2025 with the intention of doing research in quantitative finance. I will be applying for a PhD program in the future.</p>
+            </div>
+        </div>
+
+        <div class="reading-list">
+            <h2>Reading List</h2>
+            <div class="currently-reading">
+                <h2>Currently Reading</h2>
+                <ul>
+                    <li>Analysis of Financial Time Series by Ruey S. Tsay</li>
+                    <li>The Black Swan by Nassim Nicholas Taleb</li>
+                    <!-- Add more books as needed -->
+                </ul>
+            </div>
+            <div class="already-read">
+                <h3>Already Read</h3>
+                <ul>
+                    <li>Elementary Differential Equations by Boyce and DiPrima</li>
+                    <li>The Art of War by Sun Tzu</li>
+                    <li>Meditations by Marcus Aurelius</li>
+                    <li>What The Buddha Taught by Theravadin Walpola Rahula</li>
+                    <!-- Add more books as needed -->
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

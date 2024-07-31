@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,12 +74,13 @@
 
         .profile {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             background: #fff;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
+            flex-direction: row; /* Default layout for larger screens */
         }
 
         .profile img {
@@ -89,8 +91,12 @@
             margin-right: 20px;
         }
 
-        .bio {
+        .bio, .contact-info {
             flex: 1;
+        }
+
+        .bio {
+            margin-right: 20px;
         }
 
         .bio h1, .bio h2, .reading-list h2 {
@@ -103,7 +109,7 @@
             margin-bottom: 15px;
         }
 
-        .reading-list, .bio {
+        .reading-list, .bio, .contact-info {
             background: #fff;
             border-radius: 8px;
             padding: 20px;
@@ -117,6 +123,78 @@
 
         .reading-list li {
             padding: 5px 0;
+        }
+
+        .contact-info h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-info li {
+            padding: 5px 0; /* Reduced padding */
+        }
+
+        .contact-info a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .contact-info a:hover {
+            color: #007bff;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding-top: 10px;
+            }
+
+            .profile {
+                flex-direction: column; /* Stack profile image and bio on smaller screens */
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .bio {
+                margin-right: 0;
+            }
+
+            .contact-info {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header a {
+                display: block;
+                padding: 10px;
+            }
+
+            header .dropdown-content {
+                min-width: 100%; /* Full width dropdown on smaller screens */
+            }
+
+            .contact-info a {
+                font-size: 14px;
+            }
         }
 
     </style>
@@ -142,7 +220,27 @@
             <div class="bio">
                 <h1>Neil Mascarenhas</h1>
                 <h3>Applying to Financial Engineering Programs for Fall 2025</h3>
-                <p>I am well versed in statistics, financial mathematics, and machine learning. I am applying to a master's in financial engineering program for Fall 2025 with the intention of doing research in quantitative finance. I will be applying for a PhD program in the future.</p>
+                <p>
+                    I am well versed in statistics, financial mathematics, and machine learning. 
+                    I am applying to a master's in financial engineering program for Fall 2025 
+                    with the intention of doing research in quantitative finance. 
+                    I will be applying for a PhD program in the future.
+                    I have work experience in data analysis and software development, 
+                    and I have extensive study experience in mathematics, computer science, statistics, and finance.
+                </p>
+            </div>
+            <div class="contact-info">
+                <h2>Contact Information and Links</h2>
+                <ul>
+                    <li><a href="tel:+12484641432"><i class="fas fa-phone"></i> +1 248-464-1432</a></li>
+                    <li><a href="mailto:neilma@umich.edu"><i class="fas fa-envelope"></i> neilma@umich.edu</a></li>
+                    <li><a href="https://github.com/neilma123"><i class="fab fa-github"></i> Github: neilma123</a></li>
+                    <li><a href="https://www.linkedin.com/in/neil-mascarenhas-9896641a2/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="/pdfs/cr.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume (PDF)</a></li>
+                    <li><a href="/pdfs/ut.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Unofficial Transcript</a></li>
+                    <li><a href="/pdfs/s1.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Writing Sample 1</a></li>
+                    <li><a href="/pdfs/s2.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Writing Sample 2</a></li>
+                </ul>
             </div>
         </div>
 

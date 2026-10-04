@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Neil Mascarenhas | Home</title>
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script defer data-domain="neilma123.github.io" src="https://plausible.io/js/script.js"></script>
@@ -15,23 +15,28 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
             overflow-y: scroll;
         }
 
         header {
             background: #333;
             color: #fff;
-            padding: 10px 0;
+            padding: 12px 0;
             text-align: center;
             position: relative;
-            z-index: 1000; /* Ensure header stays on top */
+            z-index: 1000;
         }
 
         header a {
             color: #fff;
             text-decoration: none;
-            padding: 10px;
+            padding: 10px 14px;
+            font-weight: 500;
+        }
+
+        header a:hover {
+            color: #58b991;
         }
 
         header .dropdown {
@@ -43,35 +48,37 @@
             display: none;
             position: absolute;
             background-color: #333;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
+            min-width: 260px;
+            text-align: left;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.25);
+            border-radius: 4px;
+            z-index: 1001;
         }
 
         header .dropdown-content a {
             color: #fff;
-            padding: 12px 16px;
+            padding: 10px 16px;
             text-decoration: none;
             display: block;
+            font-size: 14px;
         }
 
         header .dropdown-content a:hover {
-            background-color: #575757;
+            background-color: #444;
+            color: #58b991;
         }
 
         header .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        header .dropdown:hover a {
-            background-color: #575757;
-        }
-
         .container {
-            width: 80%;
+            width: 82%;
+            max-width: 1100px;
             margin: auto;
             overflow: auto;
-            padding-top: 20px;
+            padding-top: 25px;
+            padding-bottom: 40px;
         }
 
         .profile {
@@ -79,193 +86,429 @@
             align-items: flex-start;
             background: #fff;
             border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            flex-direction: row; /* Default layout for larger screens */
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+            flex-direction: row;
         }
 
         .profile img {
             border-radius: 50%;
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             object-fit: cover;
-            margin-right: 20px;
-        }
-
-        .bio, .contact-info {
-            flex: 1;
+            margin-right: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
         }
 
         .bio {
-            margin-right: 20px;
+            flex: 1.2;
+            margin-right: 25px;
         }
 
-        .bio h1, .bio h2, .reading-list h2 {
-            color: #333;
-        }
-
-        .bio h2, .reading-list h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-
-        .reading-list, .bio, .contact-info {
-            background: #fff;
+        .contact-info {
+            flex: 0.9;
+            background: #fafafa;
             border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 18px 20px;
+            border: 1px solid #eee;
         }
 
-        .reading-list ul {
-            list-style: none;
-            padding: 0;
+        .bio h1 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #222;
+            font-size: 28px;
         }
 
-        .reading-list li {
-            padding: 5px 0;
+        .bio h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #0b6623;
+            font-size: 17px;
+            font-weight: 600;
         }
 
-        .contact-info h2 {
+        .bio .degree-line {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .bio p {
             color: #333;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 10px;
+        }
+
+        .contact-info h2, .section-card h2, .reading-list h2 {
+            color: #222;
             border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
+            padding-bottom: 6px;
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 19px;
         }
 
         .contact-info ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .contact-info li {
-            padding: 5px 0; /* Reduced padding */
+            padding: 6px 0;
         }
 
         .contact-info a {
             color: #333;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .contact-info a:hover {
-            color: #007bff;
+            color: #0b6623;
+            text-decoration: underline;
         }
 
         .contact-info i {
-            margin-right: 10px;
+            width: 22px;
+            margin-right: 8px;
+            color: #555;
+        }
+
+        .section-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .samples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .sample-item {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .sample-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: #58b991;
+        }
+
+        .sample-item h4 {
+            margin: 0 0 6px 0;
+            color: #222;
+            font-size: 16px;
+        }
+
+        .sample-item p {
+            margin: 0 0 12px 0;
+            color: #555;
+            font-size: 13.5px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .sample-item .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .sample-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .sample-btn:hover {
+            background: #0b6623;
+            color: #fff;
+        }
+
+        .sample-btn.secondary {
+            background: #555;
+        }
+
+        .sample-btn.secondary:hover {
+            background: #222;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #eef7f2;
+            color: #0b6623;
+            border: 1px solid #c8e6d5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .reading-list {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .reading-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .reading-columns h3 {
+            margin-top: 0;
+            color: #444;
+            font-size: 16px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+
+        .reading-columns ul {
+            list-style: square;
+            padding-left: 20px;
+            margin: 0;
+            color: #444;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .reading-columns li {
+            padding: 3px 0;
         }
 
         /* Mobile styles */
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
             .container {
-                width: 90%;
-                padding-top: 10px;
+                width: 92%;
+                padding-top: 15px;
             }
 
             .profile {
-                flex-direction: column; /* Stack profile image and bio on smaller screens */
+                flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
 
             .profile img {
                 margin-right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 18px;
             }
 
             .bio {
                 margin-right: 0;
+                margin-bottom: 20px;
             }
 
             .contact-info {
-                margin-top: 20px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: left;
+            }
+
+            .reading-columns {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
             header a {
                 display: block;
-                padding: 10px;
+                padding: 8px;
             }
 
             header .dropdown-content {
-                min-width: 100%; /* Full width dropdown on smaller screens */
+                position: static;
+                min-width: 100%;
+                box-shadow: none;
             }
 
-            .contact-info a {
-                font-size: 14px;
+            .samples-grid {
+                grid-template-columns: 1fr;
             }
         }
-
     </style>
 </head>
 <body>
     <header>
         <a href="/">Home</a>
-        <a href="/resume/">Resume</a>
+        <a href="/pdfs/Neil_Mascarenhas_Resume.pdf" target="_blank">Resume (PDF)</a>
         <div class="dropdown">
-            <a href="#">Writing Samples</a>
+            <a href="#writing-samples">Writing Samples & Research <i class="fas fa-caret-down"></i></a>
             <div class="dropdown-content">
-                <a href="/sample1/">Writing Sample 1</a>
-                <a href="/sample2/">Writing Sample 2</a>
-                <!-- Add more writing samples as needed -->
+                <a href="/pdfs/malliavin_rough_volatility_greeks.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Paper: Rough Volterra Greeks</a>
+                <a href="/pdfs/malliavin_rough_volatility_pres.pdf" target="_blank"><i class="fas fa-file-powerpoint"></i> Slides: Rough Volterra Greeks</a>
+                <a href="/pdfs/sgd_finite_infinite_dimensional_spaces.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Slides: Stochastic Gradient Descent</a>
+                <a href="/presentations/fbm_simulation/" target="_blank"><i class="fas fa-desktop"></i> Interactive: Fractional Brownian Motion</a>
+                <a href="/presentations/bayesian_hurst/" target="_blank"><i class="fas fa-desktop"></i> Interactive: Bayesian Hurst Estimation</a>
             </div>
         </div>
     </header>
 
     <div class="container">
         <div class="profile">
-            <img src="/images/NEIL_MASCARENHAS3.jpeg" alt="Neil Mascarenhas">
+            <img src="/images/headshot.jpg" alt="Neil Mascarenhas">
             <div class="bio">
                 <h1>Neil Mascarenhas</h1>
-                <h3>Applying to Financial Engineering Programs for Fall 2025</h3>
+                <h3>Cornell Financial Engineering M.Eng. &bull; Quantitative Research</h3>
+                <div class="degree-line">
+                    <strong>Cornell University:</strong> M.Eng. in Financial Engineering (GPA: 4.08, Exp. Dec 2026)<br>
+                    <strong>University of Michigan:</strong> B.S. in Mathematics & Data Science, BBA in Finance (GPA: 3.63, Dec 2024)
+                </div>
                 <p>
-                    I am well versed in statistics, financial mathematics, and machine learning. 
-                    I am applying to a master's in financial engineering program for Fall 2025 
-                    with the intention of doing research in quantitative finance. 
-                    I will be applying for a PhD program in the future.
-                    I have work experience in data analysis and software development, 
-                    and I have extensive study experience in mathematics, computer science, statistics, and finance.
+                    I am a Master of Engineering candidate in Financial Engineering at Cornell University, actively pursuing both full-time quantitative research roles and PhD programs in quantitative finance, stochastic analysis, and applied mathematics.
+                </p>
+                <p>
+                    My quantitative background spans stochastic calculus, heavy-tailed risk modeling, rough volatility, Bayesian inference, and high-performance computing in Python and C++. At Cornell, my research focuses on <strong>Heavy-Tailed Risk Modeling</strong>&mdash;modeling ruin and maximum drawdown probabilities under heavy-tailed ($\alpha$-stable) return processes using Monte Carlo and importance sampling, deriving Gaussian scale-mixture representations to accelerate simulation, and analyzing sensitivity across tail index parameters $\alpha \in [1.4, 1.7]$.
+                </p>
+                <p>
+                    My previous industry and research experience includes building production LLM-forward automation and underwriter decision probability models as a Quantitative Analyst Intern at BHG Financial, engineering feed-forward neural networks in Python to model exploration dynamics in multi-agent market simulations as a Research Assistant at the University of Michigan, and founding the 50+ member Quantitative and Computational Finance Group at U of M.
                 </p>
             </div>
             <div class="contact-info">
-                <h2>Contact Information and Links</h2>
+                <h2>Contact & Links</h2>
                 <ul>
-                    <li><a href="tel:+12484641432"><i class="fas fa-phone"></i> +1 248-464-1432</a></li>
-                    <li><a href="mailto:neilma@umich.edu"><i class="fas fa-envelope"></i> neilma@umich.edu</a></li>
-                    <li><a href="https://github.com/neilma123"><i class="fab fa-github"></i> Github: neilma123</a></li>
-                    <li><a href="https://www.linkedin.com/in/neil-mascarenhas-9896641a2/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                    <li><a href="/pdfs/cr.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume (PDF)</a></li>
-                    <li><a href="/pdfs/ut.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Unofficial Transcript</a></li>
-                    <li><a href="/pdfs/s1.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Writing Sample 1</a></li>
-                    <li><a href="/pdfs/s2.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Writing Sample 2</a></li>
+                    <li><a href="tel:+12484641432"><i class="fas fa-phone"></i> +1 (248) 464-1432</a></li>
+                    <li><a href="mailto:nmm223@cornell.edu"><i class="fas fa-envelope"></i> nmm223@cornell.edu</a></li>
+                    <li><a href="mailto:neilma@umich.edu"><i class="fas fa-envelope-open-text"></i> neilma@umich.edu</a></li>
+                    <li><a href="https://github.com/neilma123" target="_blank"><i class="fab fa-github"></i> github.com/neilma123</a></li>
+                    <li><a href="https://www.linkedin.com/in/neil-mascarenhas-9896641a2/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn Profile</a></li>
+                    <li><a href="/pdfs/Neil_Mascarenhas_Resume.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume (PDF)</a></li>
+                    <li><a href="/pdfs/ut.pdf" target="_blank"><i class="fas fa-file-alt"></i> Unofficial Transcript (PDF)</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="reading-list">
-            <h2>Reading List</h2>
-            <div class="currently-reading">
-                <h2>Currently Reading</h2>
-                <ul>
-                    <li>Analysis of Financial Time Series by Ruey S. Tsay</li>
-                    <li>A Practical Guide to Quantitative Finance Interviews by Xinfeng Zhou</li>
-                    <li>Heard on the Street: Quantitative Finance for Traders by Timothy Falcon Crack</li>
-                    <!-- Add more books as needed -->
-                </ul>
+        <div class="section-card" id="writing-samples">
+            <h2>Research Papers, Writing Samples & Slide Decks</h2>
+            <p style="color: #555; font-size: 14.5px; margin-top: 0;">
+                Selected research papers, project reports, and conference/seminar slide decks in quantitative finance, stochastic analysis, optimization, and machine learning:
+            </p>
+
+            <div class="samples-grid">
+                <!-- Sample 1: ORIE 5610 Paper & Slides -->
+                <div class="sample-item">
+                    <div>
+                        <span class="badge">Research Paper &amp; Slides</span>
+                        <h4>Computation of Greeks under Rough Volterra Stochastic Volatility Models</h4>
+                        <p>
+                            Formulates and implements Malliavin calculus integration-by-parts estimators for option sensitivities (Delta, Gamma) under non-Markovian rough Volterra models (&alpha;-RFSV, rough Bergomi, rough Stein-Stein) with comparison against finite difference and pathwise estimators.
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <a href="/pdfs/malliavin_rough_volatility_greeks.pdf" target="_blank" class="sample-btn"><i class="fas fa-file-pdf"></i> Full Paper (PDF)</a>
+                        <a href="/pdfs/malliavin_rough_volatility_pres.pdf" target="_blank" class="sample-btn secondary"><i class="fas fa-file-powerpoint"></i> Slide Deck</a>
+                    </div>
+                </div>
+
+                <!-- Sample 2: MATH 6220 SGD -->
+                <div class="sample-item">
+                    <div>
+                        <span class="badge">Mathematics Seminar</span>
+                        <h4>Stochastic Gradient Descent in Finite and Infinite Dimensional Spaces</h4>
+                        <p>
+                            Analysis of stochastic optimization algorithms, convergence rates, and Lipschitz continuous gradient complexity in finite and infinite-dimensional spaces, with applications to neural network training, maximum likelihood estimation, and optimal control.
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <a href="/pdfs/sgd_finite_infinite_dimensional_spaces.pdf" target="_blank" class="sample-btn"><i class="fas fa-file-pdf"></i> Presentation (PDF)</a>
+                    </div>
+                </div>
+
+                <!-- Sample 3: ECE 7230 FBM -->
+                <div class="sample-item">
+                    <div>
+                        <span class="badge">Interactive Slide Deck</span>
+                        <h4>Fractional Brownian Motions in Financial Models &amp; Monte Carlo Simulation</h4>
+                        <p>
+                            Motivates fractional Brownian motion (fBM) in capturing hyperbolic volatility persistence and long-range dependence. Compares Cholesky decomposition, circulant embedding, Davies-Harte, and Wood-Chan simulation methods.
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <a href="/presentations/fbm_simulation/" target="_blank" class="sample-btn"><i class="fas fa-desktop"></i> View Interactive Slides</a>
+                    </div>
+                </div>
+
+                <!-- Sample 4: ECE 7230 Pres2 Bayesian Hurst -->
+                <div class="sample-item">
+                    <div>
+                        <span class="badge">Interactive Slide Deck</span>
+                        <h4>Bayesian Approach to Hurst Exponent Estimation</h4>
+                        <p>
+                            Presents Bayesian inference for Hurst exponent estimation in fractional stochastic processes (Dlask et al.), constructing full posterior sampling distributions and credible intervals via zero-crossing probabilities and signal segmentation.
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <a href="/presentations/bayesian_hurst/" target="_blank" class="sample-btn"><i class="fas fa-desktop"></i> View Interactive Slides</a>
+                    </div>
+                </div>
+
+                <!-- Sample 5: Heavy Tailed Risk Modeling -->
+                <div class="sample-item">
+                    <div>
+                        <span class="badge">Cornell MFE Research</span>
+                        <h4>Heavy-Tailed Risk Modeling &amp; Scale-Mixture Simulation</h4>
+                        <p>
+                            Simulates ruin and maximum drawdown probabilities for heavy-tailed ($\alpha$-stable) returns using Monte Carlo and importance sampling. Employs Gaussian scale-mixture representations to accelerate simulation across tail indices $\alpha \in [1.4, 1.7]$.
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <a href="/pdfs/Neil_Mascarenhas_Resume.pdf" target="_blank" class="sample-btn secondary"><i class="fas fa-file-alt"></i> Project Details in Resume</a>
+                    </div>
+                </div>
             </div>
-            <div class="already-read">
-                <h3>Already Read</h3>
-                <ul>
-                    <li>Elementary Differential Equations by Boyce and DiPrima</li>
-                    <li>The Black Swan by Nassim Nicholas Taleb</li>
-                    <li>The Man Who Solved The Market: How Jim Simons Launched the Quant Revolution by Gregory Zuckerman</li>
-                    <li>Never Split The Difference: Negotiating As If Your Life Depended On It by Chris Voss</li>
-                    <li>Inside the Black Box: A Simple Guide to Quantitative and Algorithmic Trading by Rishi K. Narang</li>
-                    <!-- Add more books as needed -->
-                </ul>
+        </div>
+
+        <div class="reading-list">
+            <h2>Selected Reading List</h2>
+            <div class="reading-columns">
+                <div>
+                    <h3><i class="fas fa-book-open"></i> Quantitative Finance &amp; Stochastic Calculus</h3>
+                    <ul>
+                        <li><em>Analysis of Financial Time Series</em> &mdash; Ruey S. Tsay</li>
+                        <li><em>Stochastic Calculus for Finance II: Continuous-Time Models</em> &mdash; Steven Shreve</li>
+                        <li><em>A Practical Guide to Quantitative Finance Interviews</em> &mdash; Xinfeng Zhou</li>
+                        <li><em>Heard on the Street: Quantitative Finance for Traders</em> &mdash; Timothy Falcon Crack</li>
+                        <li><em>Inside the Black Box: A Simple Guide to Quantitative and Algorithmic Trading</em> &mdash; Rishi K. Narang</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3><i class="fas fa-check-circle"></i> Probability, Risk &amp; Mindset</h3>
+                    <ul>
+                        <li><em>The Black Swan: The Impact of the Highly Improbable</em> &mdash; Nassim Nicholas Taleb</li>
+                        <li><em>The Man Who Solved The Market: How Jim Simons Launched the Quant Revolution</em> &mdash; Gregory Zuckerman</li>
+                        <li><em>Elementary Differential Equations</em> &mdash; Boyce &amp; DiPrima</li>
+                        <li><em>Never Split The Difference: Negotiating As If Your Life Depended On It</em> &mdash; Chris Voss</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

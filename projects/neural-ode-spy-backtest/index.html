@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Out-of-sample SPY results for a Neural ODE, LSTM, and linear autoregression.">
+  <title>Neural ODE SPY Backtest | Neil Mascarenhas</title>
+  <link rel="stylesheet" href="assets/css/research-note.css?v=4">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="assets/js/backtest-dashboard.js?v=4" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-name" href="/">Neil Mascarenhas</a>
+    <nav aria-label="Primary navigation">
+      <a href="#results">Results</a>
+      <a href="#method">Method</a>
+      <a href="https://github.com/nihalshetty10/Phase-ODE-Project-QCF" target="_blank" rel="noopener">Source</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <article class="paper-header">
+      <p class="kicker">Research note · October 2026</p>
+      <h1>Neural ODE trading experiment on SPY</h1>
+      <p class="dek">I trained a small Neural ODE to predict the next daily return of SPY and compared it with an LSTM, a linear autoregression, buy-and-hold, and cash.</p>
+      <p class="abstract"><strong>Result.</strong> The Neural ODE made money in the 2023–2024 test period, but it did not beat buy-and-hold. Its smaller drawdown came with much lower market exposure. The page below is generated from the checked-in backtest output.</p>
+      <p class="byline">Nihal Shetty and Neil Mascarenhas · <a href="assets/data/backtest-results.json">Results data</a> · <a href="https://github.com/nihalshetty10/Phase-ODE-Project-QCF/blob/main/src/build_backtest_results.py" target="_blank" rel="noopener">Backtest code</a></p>
+    </article>
+
+    <section class="run-info" aria-label="Backtest settings">
+      <dl>
+        <div><dt>Instrument</dt><dd id="instrument">SPY</dd></div>
+        <div><dt>Test period</dt><dd id="testRange">—</dd></div>
+        <div><dt>Observations</dt><dd id="observations">—</dd></div>
+        <div><dt>Trading cost</dt><dd id="cost">—</dd></div>
+        <div><dt>Seed</dt><dd id="seed">—</dd></div>
+      </dl>
+    </section>
+
+    <section id="results" class="section">
+      <header class="section-header">
+        <h2>Test results</h2>
+        <p>Signals are calculated after close <em>t</em> and applied to the close-to-close return from <em>t</em> to <em>t + 1</em>.</p>
+      </header>
+
+      <div class="headline-result">
+        <div>
+          <span>Neural ODE return</span>
+          <strong id="verdictValue">Loading…</strong>
+          <p id="verdictText">Reading the saved backtest results.</p>
+        </div>
+        <div class="stat-grid" id="statGrid" aria-live="polite"></div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Model selector">
+        <button class="tab active" data-view="compare" role="tab" aria-selected="true">All strategies</button>
+        <button class="tab" data-view="neural_ode" role="tab" aria-selected="false">Neural ODE</button>
+        <button class="tab" data-view="lstm" role="tab" aria-selected="false">LSTM</button>
+        <button class="tab" data-view="ridge_ar" role="tab" aria-selected="false">Ridge AR(20)</button>
+      </div>
+
+      <figure class="figure figure-wide">
+        <figcaption><strong>Figure 1.</strong> Growth of $10,000, net of modeled transaction costs.</figcaption>
+        <div class="chart-wrap chart-large"><canvas id="equityChart"></canvas></div>
+      </figure>
+
+      <div class="figure-grid">
+        <figure class="figure">
+          <figcaption><strong>Figure 2.</strong> One-day price forecasts and realized adjusted close.</figcaption>
+          <div class="chart-wrap"><canvas id="priceChart"></canvas></div>
+        </figure>
+        <figure class="figure">
+          <figcaption><strong>Figure 3.</strong> Drawdown from each strategy's previous equity peak.</figcaption>
+          <div class="chart-wrap"><canvas id="drawdownChart"></canvas></div>
+        </figure>
+      </div>
+
+      <section class="metrics-section">
+        <h3>Performance summary</h3>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Strategy</th><th>Total return</th><th>CAGR</th><th>Sharpe</th><th>Volatility</th><th>Max drawdown</th><th>Sortino</th><th>Trades</th><th>Exposure</th></tr></thead>
+            <tbody id="metricsBody"></tbody>
+          </table>
+        </div>
+        <p class="footnote">Sharpe and Sortino use a 0% risk-free rate. A trade is any change in position, including a move to cash. Passive benchmarks do not incur turnover costs.</p>
+      </section>
+
+      <section class="notes">
+        <h3>Reading the result</h3>
+        <div id="findings"></div>
+      </section>
+    </section>
+
+    <section id="method" class="section">
+      <header class="section-header">
+        <h2>Method</h2>
+        <p>The split was fixed before the final test. Model selection used 2022; reported performance uses 2023–2024.</p>
+      </header>
+
+      <div class="split-table">
+        <div><strong>Training</strong><span id="trainPeriod">—</span><p>Fit model weights and scaling parameters.</p></div>
+        <div><strong>Validation</strong><span id="validationPeriod">—</span><p>Early stopping and signal thresholds.</p></div>
+        <div><strong>Test</strong><span id="testPeriod">—</span><p>Final evaluation. No tuning.</p></div>
+      </div>
+
+      <div class="method-copy">
+        <h3>Models</h3>
+        <p><strong>Neural ODE.</strong> The input is a 20-day window of standardized log returns. A linear layer maps the window to a 16-dimensional state. A learned vector field evolves that state from 0 to 1 using four RK4 steps, followed by a linear next-return forecast.</p>
+        <p><strong>LSTM.</strong> One recurrent layer with 16 hidden units, trained on the same inputs and target.</p>
+        <p><strong>Ridge AR(20).</strong> A regularized linear forecast using the same 20 lagged returns. The regularization parameter is selected on validation error.</p>
+        <p>Each forecasting model maps its prediction to a long, short, or cash position. The neutral threshold is selected on 2022 validation Sharpe. A one-way position change costs 5 basis points.</p>
+
+        <h3>Limitations</h3>
+        <p>This is one ETF and one two-year test period. The simulation does not include bid-ask spread, market impact, financing, short-borrow constraints, or taxes. The fixed transaction charge is only an approximation. The strong SPY market in 2023–2024 also makes this a favorable period for buy-and-hold. These results are descriptive, not evidence that the model will generalize.</p>
+      </div>
+    </section>
+
+    <section class="section files">
+      <h2>Files</h2>
+      <ul>
+        <li><a href="https://github.com/nihalshetty10/Phase-ODE-Project-QCF/blob/main/src/build_backtest_results.py" target="_blank" rel="noopener">Backtest pipeline</a> — training, execution, and metrics</li>
+        <li><a href="https://github.com/nihalshetty10/Phase-ODE-Project-QCF/blob/main/data/spy_adjusted_close_2015_2024.csv" target="_blank" rel="noopener">SPY data snapshot</a> — adjusted close, <span id="dataRange">—</span></li>
+        <li><a href="assets/data/backtest-results.json">assets/data/backtest-results.json</a> — data used by this page, <span id="generatedAt">—</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span><a href="/">Neil Mascarenhas</a></span>
+    <span>Educational project; not investment advice.</span>
+  </footer>
+  <div class="error-banner" id="errorBanner" hidden></div>
+</body>
+</html>

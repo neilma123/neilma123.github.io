@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Neil Mascarenhas's C++ SABR calibration and statistical-arbitrage case study.">
+  <title>SABR Statistical Arbitrage | Neil Mascarenhas</title>
+  <style>
+    :root { --ink:#102a43; --muted:#52606d; --paper:#f6f8fb; --card:#fff; --line:#d9e2ec; --accent:#167d9a; --accent-dark:#0b4f67; --good:#16794b; --bad:#b33a3a; --shadow:0 16px 45px rgba(16,42,67,.10); }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color:var(--accent-dark); font-weight:700; }
+    .shell { max-width:1120px; margin:0 auto; padding:28px 22px 64px; }
+    .nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:72px; font-size:14px; }
+    .nav a { text-decoration:none; margin-left:18px; }
+    .eyebrow { color:var(--accent-dark); font-weight:800; letter-spacing:.11em; text-transform:uppercase; font-size:12px; }
+    h1 { font-size:clamp(38px, 7vw, 76px); line-height:1.02; letter-spacing:-.055em; max-width:820px; margin:14px 0 22px; }
+    h2 { font-size:28px; letter-spacing:-.03em; margin:0 0 12px; }
+    h3 { margin:0 0 6px; font-size:18px; }
+    .lede { max-width:740px; color:var(--muted); font-size:20px; line-height:1.55; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin:28px 0 54px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; border-radius:7px; padding:11px 17px; background:var(--ink); color:#fff; text-decoration:none; font-weight:800; transition:transform .15s ease, background .15s ease; }
+    .button:hover { background:var(--accent-dark); transform:translateY(-2px); }
+    .button.alt { color:var(--ink); background:#e4edf2; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px; box-shadow:var(--shadow); }
+    .metric { min-height:132px; display:flex; flex-direction:column; justify-content:space-between; }
+    .metric-value { font-size:34px; font-weight:850; letter-spacing:-.045em; }
+    .metric-label { color:var(--muted); font-size:13px; }
+    .good { color:var(--good); } .bad { color:var(--bad); }
+    .section { margin-top:76px; }
+    .section-intro { color:var(--muted); max-width:700px; }
+    .chart-card { margin-top:22px; }
+    .chart-toolbar { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:18px; }
+    .toggle { display:inline-flex; border:1px solid var(--line); border-radius:7px; overflow:hidden; background:#f8fafc; }
+    .toggle button { cursor:pointer; border:0; border-right:1px solid var(--line); padding:9px 13px; background:transparent; color:var(--muted); font:inherit; font-weight:750; }
+    .toggle button:last-child { border-right:0; }
+    .toggle button.active { background:var(--ink); color:#fff; }
+    #chart { width:100%; min-height:290px; display:block; }
+    .axis { color:var(--muted); font-size:12px; display:flex; justify-content:space-between; }
+    .chart-note { color:var(--muted); font-size:13px; margin:10px 0 0; }
+    .two-col { display:grid; grid-template-columns:1.2fr .8fr; gap:22px; align-items:start; }
+    .process { display:grid; gap:14px; counter-reset:step; }
+    .process-item { display:grid; grid-template-columns:40px 1fr; gap:12px; align-items:start; }
+    .step { width:32px; height:32px; display:grid; place-items:center; border-radius:50%; color:#fff; background:var(--accent); font-weight:800; }
+    .process-item p { margin:0; color:var(--muted); }
+    details { border-top:1px solid var(--line); padding:15px 0; }
+    details:last-child { border-bottom:1px solid var(--line); }
+    summary { cursor:pointer; font-weight:800; }
+    details p { color:var(--muted); margin:10px 0 0; }
+    .callout { border-left:4px solid var(--accent); background:#eaf4f6; padding:19px 21px; border-radius:0 9px 9px 0; color:var(--ink); }
+    .foot { margin-top:72px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+    @media (max-width:800px) { .grid { grid-template-columns:repeat(2,1fr); } .two-col { grid-template-columns:1fr; } .nav { margin-bottom:48px; } }
+    @media (max-width:520px) { .shell { padding:20px 16px 48px; } .grid { grid-template-columns:1fr 1fr; gap:9px; } .card { padding:17px; } .metric-value { font-size:27px; } .nav span { display:none; } .nav a { margin-left:11px; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav" aria-label="Project navigation"><a href="/">Neil Mascarenhas</a><span><a href="/#writing-samples">All projects</a><a href="https://github.com/neilma123/qcfsabr" target="_blank" rel="noopener">GitHub source</a></span></nav>
+
+    <section aria-labelledby="title">
+      <div class="eyebrow">C++ quantitative research project</div>
+      <h1>Does a calibrated volatility smile create a tradable edge?</h1>
+      <p class="lede">A from-scratch implementation of SABR calibration, Black-76 pricing, and daily options relative value. The central research question is deliberately practical: do model residuals survive the spread?</p>
+      <div class="hero-actions"><a class="button" href="#results">Explore the backtest</a><a class="button alt" href="https://github.com/neilma123/qcfsabr" target="_blank" rel="noopener">View C++ repository</a></div>
+      <div class="grid" aria-label="Headline results">
+        <div class="card metric"><div class="metric-value good">+5.0%</div><div class="metric-label">Midpoint compounded return</div></div>
+        <div class="card metric"><div class="metric-value bad">−94.9%</div><div class="metric-label">Bid/ask compounded return</div></div>
+        <div class="card metric"><div class="metric-value">0.45</div><div class="metric-label">Midpoint annualized Sharpe</div></div>
+        <div class="card metric"><div class="metric-value">125</div><div class="metric-label">One-day paired trades</div></div>
+      </div>
+    </section>
+
+    <section id="results" class="section" aria-labelledby="results-title">
+      <h2 id="results-title">Execution is the result</h2>
+      <p class="section-intro">The chart compounds each trade's return on gross entry premium. Switch between marked-at-midpoint performance and a conservative fill model that buys at the ask and sells at the bid.</p>
+      <div class="card chart-card">
+        <div class="chart-toolbar"><strong id="chart-title">Normalized equity · midpoint execution</strong><div class="toggle" role="group" aria-label="Execution assumption"><button class="active" data-mode="mid">Midpoint</button><button data-mode="crossed">Cross bid/ask</button></div></div>
+        <svg id="chart" viewBox="0 0 900 300" role="img" aria-labelledby="chart-title chart-desc"><desc id="chart-desc">Monthly normalized equity from July through December 2022.</desc></svg>
+        <div class="axis"><span>July 2022</span><span>December 2022</span></div>
+        <p class="chart-note">Source: HistoricalData.net free SPX/SPXW end-of-day chain sample. Returns are delta-hedged and exclude commissions, financing, and hedge slippage.</p>
+      </div>
+    </section>
+
+    <section class="section two-col" aria-labelledby="method-title">
+      <div><h2 id="method-title">Research workflow</h2><p class="section-intro">The implementation keeps the model, data plumbing, and trading experiment small enough to audit.</p>
+        <div class="process">
+          <div class="process-item"><div class="step">1</div><div><h3>Build the smile</h3><p>Select liquid European SPXW calls with 21–60 days to expiry and infer the forward from same-strike call/put parity.</p></div></div>
+          <div class="process-item"><div class="step">2</div><div><h3>Calibrate SABR</h3><p>Fit alpha, rho, and nu with beta fixed at one using a transformed Nelder–Mead optimizer.</p></div></div>
+          <div class="process-item"><div class="step">3</div><div><h3>Trade residuals</h3><p>Buy the most underpriced implied-volatility point and short the most overpriced point in the same expiry.</p></div></div>
+          <div class="process-item"><div class="step">4</div><div><h3>Neutralize and exit</h3><p>Vega-match the legs, delta-hedge at entry, and exit at the next end-of-day quote under both execution assumptions.</p></div></div>
+        </div>
+      </div>
+      <div class="card"><h3>Implementation details</h3>
+        <details open><summary>Numerics</summary><p>Hagan's lognormal SABR approximation, Black-76 price/Delta/Vega, and bounded parameter transforms.</p></details>
+        <details><summary>Data quality</summary><p>127 verified trading days, 34-column chains, bid/ask quotes, volume, open interest, implied volatility, and Greeks.</p></details>
+        <details><summary>Reproducibility</summary><p>Build with PowerShell and rerun the full experiment with <code>run_backtest.ps1</code>. The trade log is committed as a compact audit artifact.</p></details>
+      </div>
+    </section>
+
+    <section class="section"><div class="callout"><strong>What I learned:</strong> a visually compelling model residual is not automatically a trading signal. In this sample, the spread consumed the apparent edge. That negative result is the reason to keep the execution model visible alongside the calibration.</div></section>
+    <footer class="foot">Neil Mascarenhas · Quantitative finance, stochastic modeling, and research software · <a href="/">Back to portfolio</a></footer>
+  </main>
+  <script>
+    const series = { mid: { label: 'midpoint execution', values: [128.024,127.168,101.559,110.330,111.223,104.984], color: '#167d9a' }, crossed: { label: 'crossed bid/ask', values: [82.623,51.683,25.657,17.112,8.469,5.054], color: '#b33a3a' } };
+    const svg = document.querySelector('#chart');
+    function draw(mode) {
+      const chosen = series[mode], values = chosen.values, width = 900, height = 300, left = 54, right = 20, top = 20, bottom = 34;
+      const min = 0, max = 140, x = i => left + i * (width-left-right)/(values.length-1), y = v => top + (max-v) * (height-top-bottom)/max;
+      let markup = `<line x1="${left}" x2="${width-right}" y1="${y(100)}" y2="${y(100)}" stroke="#9fb3c8" stroke-dasharray="5 5"/><text x="${left+6}" y="${y(100)-7}" fill="#52606d" font-size="12">Starting capital = 100</text>`;
+      [0,35,70,105,140].forEach(v => { markup += `<line x1="${left}" x2="${width-right}" y1="${y(v)}" y2="${y(v)}" stroke="#e6edf2"/><text x="${left-10}" y="${y(v)+4}" text-anchor="end" fill="#52606d" font-size="12">${v}</text>`; });
+      markup += `<polyline points="${values.map((v,i)=>`${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="${chosen.color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
+      values.forEach((v,i) => { markup += `<circle cx="${x(i)}" cy="${y(v)}" r="5" fill="${chosen.color}"/><text x="${x(i)}" y="${y(v)-12}" text-anchor="middle" fill="${chosen.color}" font-size="12" font-weight="700">${v.toFixed(1)}</text>`; });
+      svg.innerHTML = markup;
+      document.querySelector('#chart-title').textContent = `Normalized equity · ${chosen.label}`;
+    }
+    document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('[data-mode]').forEach(item => item.classList.remove('active')); button.classList.add('active'); draw(button.dataset.mode); }));
+    draw('mid');
+  </script>
+</body>
+</html>
